@@ -1,17 +1,21 @@
 <template>
   <div id="app">
+    <TopBar/>
     <MainPage/>
   </div>
 </template>
 
 <script>
 import MainPage from "./components/MainPage";
+import TopBar from "./components/TopBar";
 import './styles/buttons.css'
+import './styles/iconfont.css'
 
 export default {
   name: 'App',
   components: {
     MainPage,
+    TopBar,
   }
 }
 </script>
@@ -37,6 +41,6 @@ export default {
     justify-content: center; /*定义body的里的元素水平居中*/
     position: relative;
     height: 100%;
-
   }
+
 </style>
