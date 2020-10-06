@@ -38,7 +38,7 @@ export default {
     margin: 0 auto;
     padding: 0;
     display: flex;
-    justify-content: center; /*定义body的里的元素水平居中*/
+    justify-content: center;
     position: relative;
     height: 100%;
   }
