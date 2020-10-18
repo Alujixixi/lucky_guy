@@ -2,7 +2,7 @@
     <div class="top-bar">
         <i class="drop-down icon-top-bar iconfont icon-setting">
             <ul class="drop-down-content">
-                <li><a href="#">抽奖范围</a></li>
+                <li><a >抽奖名单</a></li>
                 <li><a href="#">我是2</a></li>
                 <li><a href="#">我是3</a></li>
             </ul>
@@ -13,7 +13,8 @@
 
 <script>
     export default {
-        name: "TopBar"
+        name: "TopBar",
+
     }
 </script>
 
@@ -38,10 +39,6 @@
         list-style: none;
     }
 
-    /*.nav > li {*/
-    /*    float: left;*/
-    /*}*/
-
     ul a {
         display: block;
         text-decoration: none;
@@ -52,14 +49,6 @@
         font-size: 20px;
         color: white;
     }
-
-    /*.nav > li:first-child a {*/
-    /*    border-radius: 10px 0 0 10px;*/
-    /*}*/
-
-    /*.nav > li:last-child a {*/
-    /*    border-radius: 0 10px 10px 0;*/
-    /*}*/
 
     .drop-down {
         /*position: relative;*/

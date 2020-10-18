@@ -1,12 +1,13 @@
 <template>
     <div id="main_div">
 
-        <Lottery v-if="startedChoosing" :current-one="the_list[currentIdx]"></Lottery>
-        <p v-else id="main_name">
+        <Lottery v-if="status != 'HOME'" :current-one="the_list[currentIdx]"></Lottery>
+        <p v-else-if="status == 'HOME'" id="main_name">
             {{welcome}}
         </p>
-        <a class="button button-glow button-rounded button-raised button-primary"
-            @click="gogogo">奥力给!</a>
+        <button class="button button-glow button-rounded button-raised button-primary"
+           :disabled="status == 'CHOOSING'" @click="gogogo">奥力给!</button>
+        <ListSet v-show="false" :list="the_list" :status="status"/>
 <!--        <a class="button button-glow button-border button-rounded button-primary">奥利给!</a>-->
     </div>
 </template>
@@ -14,32 +15,23 @@
 <script>
 
     import Lottery from "./Lottery";
+    import ListSet from "./ListSet";
     export default {
         name: "MainPage",
-        components: {Lottery},
+        components: {ListSet, Lottery},
         data: function() {
             return {
-                startedChoosing: false,
+                status: "HOME",
                 welcome: "Press “奥力给！” to Start",
-                the_list: [
-                    "唐少",
-                    "GC",
-                    "三七开",
-                    "冷冷",
-                    "臭猪1",
-                    "臭猪2",
-                    "臭猪3",
-                    "臭猪4",
-                    "臭猪5",
-                    "臭猪6",
-                    "臭猪7",
-                    "臭猪8",
-                ],
+                the_list: this.$store.state.the_list,
                 currentIdx: 0,
                 lastIdx: 0,
             };
         },
         computed: {
+            // the_list: function() {
+            //     return this.$store.the_list;
+            // },
             length: function () {
                 return this.the_list.length;
             },
@@ -52,7 +44,7 @@
                 for(let t = Date.now();Date.now() - t <= d;);
             },
             gogogo: function () {
-                this.startedChoosing = true;
+                this.status = "CHOOSING";
                 this.start_choosing();
             },
             start_choosing: function () {
@@ -68,19 +60,19 @@
                     if(Math.abs(this.totalLength- i ) < 2) {
                         time += 100;
                     }
-                    setTimeout( this.choosing, time);
+                    setTimeout( this.choosing, time, i, this.totalLength);
                     // console.log(time);
                 }
             },
-            choosing: function () {
+            choosing: function (i, length) {
                 let idx = 0;
                 do {
                     idx = Math.floor(Math.random() * this.length);
-                    console.log("log1: " + idx);
                 } while (idx == this.lastIdx)
-                console.log("log2: " + idx);
                 this.lastIdx = idx;
                 this.currentIdx = idx;
+                if(length === i+1)
+                    this.status = "CHOOSING_FINISHED";
             }
         }
     }
@@ -93,7 +85,7 @@
 
     #main_div {
         margin: 0 auto;
-        top: 25%;
+        top: 5%;
         position: relative;
     }
 
