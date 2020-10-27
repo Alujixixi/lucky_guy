@@ -7,7 +7,8 @@
         </p>
         <button class="button button-glow button-rounded button-raised button-primary"
            :disabled="status == 'CHOOSING'" @click="gogogo">奥力给!</button>
-        <ListSet v-show="false" :list="the_list" :status="status"/>
+        <ListSet v-show="status == 'LIST_SETTING'" :list="the_list" :status="status"/>
+
 <!--        <a class="button button-glow button-border button-rounded button-primary">奥利给!</a>-->
     </div>
 </template>
@@ -21,7 +22,7 @@
         components: {ListSet, Lottery},
         data: function() {
             return {
-                status: "HOME",
+                status: this.$store.getters.get_status,
                 welcome: "Press “奥力给！” to Start",
                 the_list: this.$store.state.the_list,
                 currentIdx: 0,
@@ -44,7 +45,8 @@
                 for(let t = Date.now();Date.now() - t <= d;);
             },
             gogogo: function () {
-                this.status = "CHOOSING";
+                console.log("choosing")
+                this.$store.commit("status_switch", {status:"CHOOSING"})
                 this.start_choosing();
             },
             start_choosing: function () {
@@ -71,8 +73,10 @@
                 } while (idx == this.lastIdx)
                 this.lastIdx = idx;
                 this.currentIdx = idx;
-                if(length === i+1)
-                    this.status = "CHOOSING_FINISHED";
+                if(length === i+1) {
+                    console.log("here")
+                    // this.$store.state.status = "CHOOSING_FINISHED";
+                }
             }
         }
     }

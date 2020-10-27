@@ -2,7 +2,7 @@
     <div class="top-bar">
         <i class="drop-down icon-top-bar iconfont icon-setting">
             <ul class="drop-down-content">
-                <li><a >抽奖名单</a></li>
+                <li><a @click="onListSettingClick">抽奖名单</a></li>
                 <li><a href="#">我是2</a></li>
                 <li><a href="#">我是3</a></li>
             </ul>
@@ -14,7 +14,11 @@
 <script>
     export default {
         name: "TopBar",
-
+        methods: {
+            onListSettingClick: function () {
+                this.$store.state.status
+            }
+        }
     }
 </script>
 
